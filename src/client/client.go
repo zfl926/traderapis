@@ -1,7 +1,7 @@
 package client
 
 import (
-	"github.com/go-resty/resty"
+	"gopkg.in/resty.v1"
 )
 
 type URL struct {
@@ -23,15 +23,14 @@ type Response struct {
 	Body   string `body`
 }
 
-func (this *URL) Url2String() {
-	return "test"
+func (this *URL) Url2String() string {
+	return this.Schema + "/" + this.Host + "/" + this.path
 }
 
 func Get(req Request) (*Response, error) {
-	resp, err := resty.R().Get(req.Url.Url2String())
+	_, err := resty.R().Get(req.Url.Url2String())
 	if err != nil {
-
+		return nil, err
 	}
-
 	return nil, err
 }
